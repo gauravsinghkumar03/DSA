@@ -11,45 +11,39 @@
  */
 class Solution {
 public:
-    TreeNode* minVal(TreeNode* root) {
-        if (root == NULL) return NULL;
-        while (root->left != NULL) {
-            root = root->left;
+    TreeNode* minVal(TreeNode* root){
+        while(root->left!=NULL){
+            root=root->left;
         }
         return root;
     }
-
-    TreeNode* deleteNode(TreeNode* root, int val) {
-        if (root == NULL) return NULL;
-
-        if (val < root->val) {
-            root->left = deleteNode(root->left, val);
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if(root==NULL) return NULL;
+        if(root->val > key){
+            root->left =deleteNode(root->left,key);
         }
-        else if (val > root->val) {
-            root->right = deleteNode(root->right, val);
+        else if(root->val < key){
+            root->right =deleteNode(root->right,key);
         }
-        else {
+        else{
 
-            if (root->left ==NULL && root->right == NULL) {
-                delete root;
+            if(root->left==NULL && root->right==NULL){
                 return NULL;
             }
-            else if (root->left == NULL) {
-                TreeNode* temp = root->right;
+            else if(root->left==NULL && root->right!=NULL){
+                TreeNode * temp=root->right;
                 delete root;
                 return temp;
             }
-            else if (root->right == NULL) {
-                TreeNode* temp = root->left;
+            else if(root->left!=NULL && root->right==NULL){
+                TreeNode * temp=root->left;
                 delete root;
                 return temp;
             }
-            else {
-                TreeNode* succ = minVal(root->right);
-                if (succ) {
-                    root->val = succ->val;
-                    root->right = deleteNode(root->right, succ->val);
-                }
+            else{
+                int miniVal = minVal(root->right)->val;
+                root->val=miniVal;
+                root->right=deleteNode(root->right,miniVal);
             }
         }
         return root;

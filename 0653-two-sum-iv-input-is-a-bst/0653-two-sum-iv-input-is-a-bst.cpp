@@ -17,10 +17,7 @@ public:
         arr.push_back(root->val);
         Inorder(root->right,arr);
     }
-    bool findTarget(TreeNode* root, int k) {
-        vector<int> arr;
-        Inorder(root,arr);
-
+    bool answer(vector<int>&arr,int k){
         int i=0,j=arr.size()-1;
         while(i<j){
             int sum=arr[i]+arr[j];
@@ -33,5 +30,23 @@ public:
             }
         }
         return false;
+    }
+    bool findTarget(TreeNode* root, int k) {
+        vector<int> arr;
+        Inorder(root,arr);
+        return answer(arr,k);
+
+        // int i=0,j=arr.size()-1;
+        // while(i<j){
+        //     int sum=arr[i]+arr[j];
+        //     if(sum==k){
+        //         return true;
+        //     }else if(sum>k){
+        //         j--;
+        //     }else{
+        //         i++;
+        //     }
+        // }
+        // return false;
     }
 };

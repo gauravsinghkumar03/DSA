@@ -12,7 +12,7 @@
 
 class Solution {
 public:
-    TreeNode* prev = nullptr; 
+    TreeNode* prev = NULL; 
 
     void flatten(TreeNode* root) {
         if (!root) return;
@@ -20,7 +20,7 @@ public:
         flatten(root->left);  
 
         root->right = prev;
-        root->left = nullptr;
+        root->left = NULL;
         prev = root;
     }
 };
